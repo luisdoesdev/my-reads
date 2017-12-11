@@ -1,9 +1,8 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
-import BooksRead from './BooksRead'
-import BooksWants from './BooksWants'
-import BooksCurrent from './BooksCurrent'
+
+import BooksContainers from './BooksContainers'
 import SearchBooks from './SearchBooks'
 import { Route } from 'react-router-dom'
 
@@ -19,9 +18,9 @@ class BooksApp extends React.Component {
     ]
 
     /**
-     *Sepparate each page by Route
-     * Modulate the app
-     * Sepparate The Books
+    
+     
+     
      * Add The API
      */
    
@@ -47,19 +46,20 @@ class BooksApp extends React.Component {
     let current = []
     let wants = []
 
+
     const { books } = this.state//hold the books state in this variable 
 
 
     books.filter((b)=>{
-      if(b.shelf == "read"){
+      if(b.shelf === "read"){
         read.push(b)
       }
   
-      if(b.shelf ==  "currentlyReading"){
+      if(b.shelf ===  "currentlyReading"){
         current.push(b)
       }
     
-      if(b.shelf == "wantToRead")
+      if(b.shelf === "wantToRead")
         wants.push(b)
   
     })
@@ -80,21 +80,44 @@ class BooksApp extends React.Component {
                 <h1>MyReads</h1>
               </div>
               <div className="list-books-content">
-            
-               <BooksCurrent
-              current = {current}
-              />
-            
-              <BooksRead
-               read = {read}
-               onMoveBooks ={this.booksMove}
-              />
-            
-              <BooksWants
-              wants = {wants}
-              />
-            
-             
+
+
+             {/* Currently Reading  */}
+              <div className="bookshelf">
+              <h2 className="bookshelf-title">Currently Reading</h2>
+              <div className="bookshelf-books">
+                    <BooksContainers
+                      book = {current}
+                      onMoveBooks ={this.booksMove}
+                      />
+              </div>
+              </div>
+
+
+            {/* Already Read  */}
+              <div className="bookshelf">
+              <h2 className="bookshelf-title">Already Read</h2>
+              <div className="bookshelf-books">
+                    <BooksContainers
+                    book = {read}
+                    onMoveBooks ={this.booksMove}
+                    />
+              </div>
+              </div>  
+
+
+
+               {/* Want To Read  */}
+              <div className="bookshelf">
+                <h2 className="bookshelf-title">Want To Reading</h2>
+                  <div className="bookshelf-books">    
+                    <BooksContainers
+                    book = {wants}
+                    onMoveBooks ={this.booksMove}
+                    />
+              
+                  </div>
+              </div>
                
               </div>
               <div className="open-search" >
