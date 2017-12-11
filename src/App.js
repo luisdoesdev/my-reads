@@ -1,5 +1,5 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 import BooksContainers from './BooksContainers'
@@ -10,10 +10,10 @@ import { Route } from 'react-router-dom'
 class BooksApp extends React.Component {
   state = {
     books:[
-      {id:1 ,title:"Ender's Game", author:"Orson Scott Card", shelf:"currentlyReading"},
-      {id:2 ,title:"To Kill a Mckingbird", author:" Harper Lee", shelf:"wantToRead"},
-      {id:3 ,title:"The Hunger Games", author: "Some Lady", shelf:"read"},
-      {id:4 ,title:"The Hunger Games", author: "HELLA YEA", shelf:"read"}
+     // {id:1 ,title:"Ender's Game", author:"Orson Scott Card", shelf:"currentlyReading"},
+     // {id:2 ,title:"To Kill a Mckingbird", author:" Harper Lee", shelf:"wantToRead"},
+     // {id:3 ,title:"The Hunger Games", author: "Some Lady", shelf:"read"},
+     // {id:4 ,title:"The Hunger Games", author: "HELLA YEA", shelf:"read"}
 
     ]
 
@@ -25,6 +25,12 @@ class BooksApp extends React.Component {
      */
    
   }
+  // call The API
+componentDidMount(){
+  BooksAPI.getAll().then((books)=>{
+    this.setState({books})
+  })
+}
 
 
 
@@ -48,7 +54,7 @@ class BooksApp extends React.Component {
 
 
     const { books } = this.state//hold the books state in this variable 
-
+    console.log(books)
 
     books.filter((b)=>{
       if(b.shelf === "read"){
