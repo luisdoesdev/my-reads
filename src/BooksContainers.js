@@ -17,8 +17,8 @@ class BooksContainers extends Component{
 render(){
     const {book, onMoveBooks} = this.props
 
-    // I kept getting a bug where the first option value on select was not being input, decided to make a 
-    // a "none" summy option to work around it
+    // I kept getting a bug where the first option of the value on select was not being input, decided to make a 
+    // a "none" dummy option to work around it, this variable is to hide that dummy
     const hide = {
       display:"none", 
     }

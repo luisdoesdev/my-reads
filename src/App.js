@@ -4,7 +4,7 @@ import './App.css'
 
 import BooksContainers from './BooksContainers'
 import SearchBooks from './SearchBooks'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 
 
 class BooksApp extends React.Component {
@@ -13,7 +13,7 @@ class BooksApp extends React.Component {
      // {id:1 ,title:"Ender's Game", author:"Orson Scott Card", shelf:"currentlyReading"},
      // {id:2 ,title:"To Kill a Mckingbird", author:" Harper Lee", shelf:"wantToRead"},
      // {id:3 ,title:"The Hunger Games", author: "Some Lady", shelf:"read"},
-     // {id:4 ,title:"The Hunger Games", author: "HELLA YEA", shelf:"read"}
+     // {id:4 ,title:"The Hunger Games", author: "HELLA YEA", shelf:"read"} Books Objects Reference
 
     ]
 
@@ -48,14 +48,15 @@ componentDidMount(){
   }
 
   render() {
+    
+    //Sepparate the books and sort them by shelfs    
+    
+    //shelves
     let read = []
     let current = []
     let wants = []
 
-
     const { books } = this.state//hold the books state in this variable 
-    console.log(books)
-
     books.filter((b)=>{
       if(b.shelf === "read"){
         read.push(b)
@@ -70,10 +71,6 @@ componentDidMount(){
   
     })
 
-
-    
- 
- // make divs up here
 
     return (
       <div className="app">
@@ -127,8 +124,11 @@ componentDidMount(){
                
               </div>
               <div className="open-search" >
-                <a href="/search">Add a book</a>
-              </div>
+                <Link
+                to="/search"
+                > add a book
+                </Link>
+                </div>
             </div>
             )} 
           />
