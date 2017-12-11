@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
+import BooksContainers from './BooksContainers'
 
 import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
@@ -42,10 +43,28 @@ state={
     })
 }
 
-
+  //switch books
+  booksMove=(id,e)=>{
+    console.log(id, e)
+    this.setState((state)=>{
+      books:state.books.filter((b)=>{
+        if(b.id === id){
+          b.shelf = e
+        }
+      })
+    })
+    
+    //Update API
+    
+    const book = this.state.books.filter(b => b.id == id)[0] //grab the object
+    
+    BooksAPI.update(book,e)  
+  
+  }
 
 render(){
     const {books, query} = this.state
+ 
    
     console.log(books)
     
@@ -86,10 +105,10 @@ render(){
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-              
-              {filterBooks.map((b)=>(
-                  <li>{b.title}</li>
-              ))}
+             <BooksContainers
+             onMoveBooks = {this.booksMove}
+             book = { books}
+             />
               
               </ol>
             </div>

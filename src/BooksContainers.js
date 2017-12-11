@@ -15,7 +15,7 @@ class BooksContainers extends Component{
 
 
 render(){
-    const {book, onMoveBooks} = this.props
+    const {book, onMoveBooks, onDelete} = this.props
 
     // I kept getting a bug where the first option of the value on select was not being input, decided to make a 
     // a "none" dummy option to work around it, this variable is to hide that dummy
@@ -39,6 +39,8 @@ render(){
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
+                                <option value="none">Remove</option>
+                                
                               </select>
                             </div>
                           </div>

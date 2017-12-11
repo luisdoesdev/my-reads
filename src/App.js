@@ -33,7 +33,6 @@ componentDidMount(){
 }
 
 
-
   //switch books
   booksMove=(id,e)=>{
     console.log(id, e)
@@ -41,10 +40,16 @@ componentDidMount(){
       books:state.books.filter((b)=>{
         if(b.id === id){
           b.shelf = e
-        }
+        } 
       })
     })
-    console.log(this.state.books.filter((b)=> b.shelf == "wantToRead"))
+    
+    //Update API
+    
+    const book = this.state.books.filter(b => b.id == id)[0] //grab the object
+    
+    BooksAPI.update(book,e)  
+  
   }
 
   render() {
@@ -104,6 +109,7 @@ componentDidMount(){
                     <BooksContainers
                     book = {read}
                     onMoveBooks ={this.booksMove}
+                 
                     />
               </div>
               </div>  
