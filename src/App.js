@@ -23,20 +23,22 @@ componentDidMount(){
 
   //switch books
   booksMove=(id,e)=>{
-    console.log(id, e)
-    this.setState((state)=>{
-      books:state.books.filter((b)=>{
-        if(b.id === id){
-          b.shelf = e
-        } 
-      })
-    })
+    const shelf = e
+    const bookFilter  = this.state.books.filter(book => book.id === id ) // filter books by ID
+    const book = bookFilter.shift() //Grab the book from the arrays
+  
+
+    if (book.shelf !== shelf){ 
+      book.shelf = shelf
+      
+
+      this.setState(state=>({
+        books: state.books.filter(b => b.id !== book.id).concat([ book ])
+      }))
+
+    }
     
-    //Update API
     
-    const book = this.state.books.filter(b => b.id == id)[0] //grab the object
-    
-    BooksAPI.update(book,e)  
   
   }
 
