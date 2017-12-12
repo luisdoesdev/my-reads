@@ -22,6 +22,7 @@ render(){
     const hide = {
       display:"none", 
     }
+    
    
     return(
               <div>
@@ -33,6 +34,7 @@ render(){
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${b.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
+                            
                               <select value={this.props.value} onChange={(e)=> onMoveBooks(b.id, e.target.value)}>
                                 <option  value="none" disabled>Move to...</option>
                                 <option style={hide} value="none"></option>

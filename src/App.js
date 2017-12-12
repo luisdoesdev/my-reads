@@ -9,22 +9,10 @@ import { Route, Link } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
-    books:[
-     // {id:1 ,title:"Ender's Game", author:"Orson Scott Card", shelf:"currentlyReading"},
-     // {id:2 ,title:"To Kill a Mckingbird", author:" Harper Lee", shelf:"wantToRead"},
-     // {id:3 ,title:"The Hunger Games", author: "Some Lady", shelf:"read"},
-     // {id:4 ,title:"The Hunger Games", author: "HELLA YEA", shelf:"read"} Books Objects Reference
-
-    ]
-
-    /**
-    
-     
-     
-     * Add The API
-     */
-   
+    books:[]
   }
+
+
   // call The API
 componentDidMount(){
   BooksAPI.getAll().then((books)=>{
@@ -54,27 +42,14 @@ componentDidMount(){
 
   render() {
     
+    const { books } = this.state
+
     //Sepparate the books and sort them by shelfs    
     
     //shelves
-    let read = []
-    let current = []
-    let wants = []
-
-    const { books } = this.state//hold the books state in this variable 
-    books.filter((b)=>{
-      if(b.shelf === "read"){
-        read.push(b)
-      }
-  
-      if(b.shelf ===  "currentlyReading"){
-        current.push(b)
-      }
-    
-      if(b.shelf === "wantToRead")
-        wants.push(b)
-  
-    })
+    const read = books.filter(book => book.shelf === "read" )
+    const wantToRead = books.filter(book => book.shelf === "wantToRead" )
+    const currentlyReading  = books.filter(book => book.shelf === "currentlyReading" )
 
 
     return (
@@ -95,7 +70,7 @@ componentDidMount(){
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                     <BooksContainers
-                      book = {current}
+                      book = {currentlyReading}
                       onMoveBooks ={this.booksMove}
                       />
               </div>
@@ -121,7 +96,7 @@ componentDidMount(){
                 <h2 className="bookshelf-title">Want To Reading</h2>
                   <div className="bookshelf-books">    
                     <BooksContainers
-                    book = {wants}
+                    book = {wantToRead}
                     onMoveBooks ={this.booksMove}
                     />
               
