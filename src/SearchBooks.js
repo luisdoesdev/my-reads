@@ -10,7 +10,7 @@ import sortBY from 'sort-by'
 class SearchBooks extends Component{
 
 state={
-    books:[],
+    results:[],
     query: ''
 }
 
@@ -22,14 +22,18 @@ state={
 
 
 
-  updateQuery = ( query, books ) =>{
-      
+  updateQuery = ( query, book ) =>{
+    const  books = this.props.books
+    console.log(books)
     this.setState({
           query: query.trim()
       })
 
-    BooksAPI.search(query).then((books)=>{
-        this.setState({books})
+    BooksAPI.search(query).then((results)=>{
+      this.setState({
+        results
+      })
+  
     })     
       
   }
@@ -43,40 +47,30 @@ state={
     })
 }
 
-  //switch books
-  booksMove=(id,e)=>{
-    console.log(id, e)
-    this.setState((state)=>{
-      books:state.books.filter((b)=>{
-        if(b.id === id){
-          b.shelf = e
-        }
-      })
-    })
-    
+
     //Update API
     
-    const book = this.state.books.filter(b => b.id == id)[0] //grab the object
-    
-    BooksAPI.update(book,e)  
-  
-  }
+ 
 
 render(){
-    const {books, query} = this.state
+    const { query, results } = this.state
+    const { onMoveBooks,books } = this.props
+    
+
+    
  
    
-    console.log(books)
+    
     
     let filterBooks 
 
     if ( query ){
         const match = new RegExp(escapeRegExp(query), 'i')  
-        filterBooks = books.filter((book)=> match.test(book.title))
+        filterBooks =  results.filter((book)=> match.test(book.title))
 
     } 
     else {
-        filterBooks = this.state.books
+        filterBooks = results
     }
 
 
@@ -106,8 +100,8 @@ render(){
             <div className="search-books-results">
               <ol className="books-grid">
              <BooksContainers
-             onMoveBooks = {this.booksMove}
-             book = { books}
+             onMoveBooks = {onMoveBooks}
+             book = { filterBooks }
              />
               
               </ol>

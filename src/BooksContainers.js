@@ -22,6 +22,7 @@ render(){
     const hide = {
       display:"none", 
     }
+    console.log(onMoveBooks)
     
    
     return(

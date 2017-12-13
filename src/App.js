@@ -24,7 +24,10 @@ componentDidMount(){
   //switch books
   booksMove=(id,e)=>{
     const shelf = e
-    const bookFilter  = this.state.books.filter(book => book.id === id ) // filter books by ID
+    const { books } = this.state
+    
+    console.log(shelf, book)
+    const bookFilter  = books.filter(book => book.id === id ) // filter books by ID
     const book = bookFilter.shift() //Grab the book from the arrays
   
 
@@ -35,7 +38,7 @@ componentDidMount(){
       this.setState(state=>({
         books: state.books.filter(b => b.id !== book.id).concat([ book ])
       }))
-
+      
     }
     
     
@@ -121,7 +124,8 @@ componentDidMount(){
         <Route path="/search" exact render={()=>(
 
           <SearchBooks 
-          
+           books = { this.state.books }
+           onMoveBooks = {this.booksMove}
           />
         )}
         /> 
