@@ -35,10 +35,9 @@ render(){
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${b.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
                             
-                              <select value={this.value} onChange={(e)=> onMoveBooks(b.id, e.target.value, this)}>
+                              <select  onChange={(e)=> onMoveBooks(b.id, e.target.value, this)}>
 
                            
-
                                 <option  value="none" disabled>Move to...</option>
                                 <option style={hide} value="none"></option>
                                 <option value="currentlyReading">Currently Reading</option>

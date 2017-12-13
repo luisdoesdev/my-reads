@@ -105,7 +105,7 @@ componentDidMount(){
                   <div className="bookshelf-books">    
                     <BooksContainers
                     book = {wantToRead}
-                    
+                    onMoveBooks = {this.booksMove}
                     />
               
                   </div>
