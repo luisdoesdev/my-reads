@@ -10,29 +10,31 @@ import sortBY from 'sort-by'
 class SearchBooks extends Component{
 
 state={
-    books:[],
+    results:[],
     query: ''
 }
 
-  // call The API
- componentDidMount(){
-     this.updateQuery()
- }
+// call The API
+componentDidMount(){
+ this.updateQuery()
  
+}
 
 
 
-  updateQuery = ( query, books ) =>{
-      
-    this.setState({
-          query: query.trim()
-      })
 
-    BooksAPI.search(query).then((books)=>{
-        this.setState({books})
-    })     
-      
-  }
+
+updateQuery = ( query ) =>{
+  
+  const book = this.props.books
+  this.setState({
+    query: query.trim()
+  })
+
+  BooksAPI.search(query).then((books)=>{
+    this.setState({results:books})
+  })    
+}
 
 
 
@@ -41,44 +43,31 @@ state={
     this.setState({
         query: query = " "
     })
+
+   
 }
 
-  //switch books
-  booksMove=(id,e)=>{
-    console.log(id, e)
-    this.setState((state)=>{
-      books:state.books.filter((b)=>{
-        if(b.id === id){
-          b.shelf = e
-        }
-      })
-    })
+
     
-    //Update API
-    
-    const book = this.state.books.filter(b => b.id == id)[0] //grab the object
-    
-    BooksAPI.update(book,e)  
-  
-  }
 
 render(){
-    const {books, query} = this.state
- 
-   
-    console.log(books)
+    const { query, results} = this.state
+    const { onMoveBooks, books } = this.props
+   console.log(results)
+    
     
     let filterBooks 
 
     if ( query ){
         const match = new RegExp(escapeRegExp(query), 'i')  
-        filterBooks = books.filter((book)=> match.test(book.title))
+        filterBooks = results.filter((book)=> match.test(book.title))
 
     } 
     else {
-        filterBooks = this.state.books
+        filterBooks = results
     }
 
+      
 
 
       
@@ -105,11 +94,11 @@ render(){
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-             <BooksContainers
-             onMoveBooks = {this.booksMove}
-             book = { books}
-             />
-              
+              <BooksContainers
+              book={results}
+              onMoveBooks = {onMoveBooks}
+              />        
+
               </ol>
             </div>
           </div>

@@ -21,21 +21,27 @@ componentDidMount(){
 }
 
 
-  //switch books
-  booksMove=(id,e)=>{
-    const shelf = e
-    const bookFilter  = this.state.books.filter(book => book.id === id ) // filter books by ID
-    const book = bookFilter.shift() //Grab the book from the arrays
+ 
   
 
+  //switch books
+  booksMove=(id,e, object)=>{
+    console.log(object.props.book.filter(b=> b.id === id))
+    const shelf = e
+    const bookArray = object.props.book.filter(b=> b.id === id)
+    const book = bookArray.shift()
+    console.log(book.shelf)
+
     if (book.shelf !== shelf){ 
-      book.shelf = shelf
-      
+      BooksAPI.update(book,shelf).then(()=>{
 
-      this.setState(state=>({
-        books: state.books.filter(b => b.id !== book.id).concat([ book ])
-      }))
-
+        book.shelf = shelf
+        
+        
+        this.setState(state=>({
+          books: state.books.filter(b => b.id !== book.id).concat([ book ])
+        }))
+      })
     }
     
     
@@ -99,7 +105,7 @@ componentDidMount(){
                   <div className="bookshelf-books">    
                     <BooksContainers
                     book = {wantToRead}
-                    onMoveBooks ={this.booksMove}
+                    
                     />
               
                   </div>
@@ -121,7 +127,9 @@ componentDidMount(){
         <Route path="/search" exact render={()=>(
 
           <SearchBooks 
-          
+          onMoveBooks = {this.booksMove}
+          books = { books }
+          onUpdateBooks = {this.updateBooks}
           />
         )}
         /> 
