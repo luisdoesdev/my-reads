@@ -16,6 +16,17 @@ class BooksContainers extends Component{
 
 render(){
     const {book, onMoveBooks, onDelete} = this.props
+    
+    //Basic fix for the problem of the options
+    let opts
+    for(let i in book){
+      let b = book[i]
+      if (b.shelf === "read")
+      opts = "read"
+    }
+
+
+
 
     // I kept getting a bug where the first option of the value on select was not being input, decided to make a 
     // a "none" dummy option to work around it, this variable is to hide that dummy
@@ -34,16 +45,13 @@ render(){
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${b.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
-                            
+
+                              <h1>{opts}</h1>          
                               <select  onChange={(e)=> onMoveBooks(b.id, e.target.value, this)}>
 
-                           
                                 <option  value="none" disabled>Move to...</option>
                                 <option style={hide} value="none"></option>
-                                <option value="currentlyReading">Currently Reading</option>
-                                <option value="wantToRead">Want to Read</option>
-                                <option value="read">Read</option>
-                                <option value="none">Remove</option>
+                             
                             
                               
                               </select>
