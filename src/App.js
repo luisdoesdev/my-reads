@@ -26,11 +26,11 @@ componentDidMount(){
 
   //switch books
   booksMove=(id,e, object)=>{
-    console.log(object.props.book.filter(b=> b.id === id))
+    
     const shelf = e
     const bookArray = object.props.book.filter(b=> b.id === id)
     const book = bookArray.shift()
-    console.log(book.shelf)
+   
 
     if (book.shelf !== shelf){ 
       BooksAPI.update(book,shelf).then(()=>{

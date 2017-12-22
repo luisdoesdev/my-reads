@@ -34,6 +34,8 @@ updateQuery = ( query ) =>{
   BooksAPI.search(query).then((books)=>{
     
     
+
+    //for loop to determine what books are on my shelf
     BooksAPI.getAll().then((booksInShelfs)=>{
       
       for(let b in books){

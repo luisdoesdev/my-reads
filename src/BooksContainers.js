@@ -17,62 +17,9 @@ class BooksContainers extends Component{
 render(){
     const {book, onMoveBooks, onDelete} = this.props
     
-    //Basic fix for the problem of the options
-    
-    
-    
-    let opts = []
-    for(let b of book){
-     
-     
-     
-      
+  
     
 
-      if (b.shelf === "read" ){
-
-        opts = [
-          {id:1},
-          {value:"read", title:" ✓ Read"},
-          {value:"currentlyReading", title: "Currently Reading"},
-          {value:"wantToRead", title: "Want To Read"} 
-        ]
-      }
-
-       else if (b.shelf === "wantToRead"){
-
-          opts = [
-            {id:2},
-            {value:"read", title:" Read"},
-            {value:"currentlyReading", title: "Currently Reading"},
-            {value:"wantToRead", title: " ✓ Want To Read"} 
-          ] 
-        }
-        
-       else if (b.shelf === "currentlyReading"){
-
-         opts = [
-          {id:3},
-           {value:"read", title:" Read"},
-           {value:"currentlyReading", title: " ✓ Currently Reading"},
-           {value:"wantToRead", title: "Want To Read"} 
-          ]     
-        }
-     
-    
-        else { 
-          opts = [
-            {id:4},
-            {value:"read", title:" Read"},
-            {value:"currentlyReading", title: "Currently Reading"},
-            {value:"wantToRead", title: "Want To Read"} 
-                ] 
-
-        }     
-        console.log(b, opts)
-    
-    
-    }
  
 
 
@@ -82,9 +29,7 @@ render(){
       display:"none", 
     }
     
-    const highlight = {
-      
-    }
+   
    
     return(
               <div>
