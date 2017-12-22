@@ -18,14 +18,58 @@ render(){
     const {book, onMoveBooks, onDelete} = this.props
     
     //Basic fix for the problem of the options
-    let opts
+    let opts = []
+
+    
+
     for(let i in book){
+     
+     
       let b = book[i]
-      if (b.shelf === "read")
-      opts = "read"
+      console.log(b)
+    
+
+      if (b.shelf === "read" ){
+
+        opts = [
+          {value:"read", title:" ✓ Read"},
+          {value:"currentlyReading", title: "Currently Reading"},
+          {value:"wantToRead", title: "Want To Read"} 
+        ]
+      }
+
+       else if (b.shelf === "wantToRead"){
+
+          opts = [
+            {value:"read", title:" Read"},
+            {value:"currentlyReading", title: "Currently Reading"},
+            {value:"wantToRead", title: " ✓ Want To Read"} 
+          ] 
+        }
+        
+       else if (b.shelf === "currentlyReading"){
+
+         opts = [
+           {value:"read", title:" Read"},
+           {value:"currentlyReading", title: " ✓ Currently Reading"},
+           {value:"wantToRead", title: "Want To Read"} 
+          ]     
+        }
+     
+    
+        else { 
+          opts = [
+            {value:"read", title:" Read"},
+            {value:"currentlyReading", title: "Currently Reading"},
+            {value:"wantToRead", title: "Want To Read"} 
+                ] 
+
+        }     
+        
+    
+    
     }
-
-
+ 
 
 
     // I kept getting a bug where the first option of the value on select was not being input, decided to make a 
@@ -46,12 +90,15 @@ render(){
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${b.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
 
-                              <h1>{opts}</h1>          
+                                      
                               <select  onChange={(e)=> onMoveBooks(b.id, e.target.value, this)}>
 
                                 <option  value="none" disabled>Move to...</option>
                                 <option style={hide} value="none"></option>
-                             
+                                {opts.map((o)=>(
+                                  <option value={o.value}>{o.title}</option>
+                                ))}
+
                             
                               
                               </select>

@@ -32,7 +32,28 @@ updateQuery = ( query ) =>{
   })
 
   BooksAPI.search(query).then((books)=>{
-    this.setState({results:books})
+    
+    
+    BooksAPI.getAll().then((booksInShelfs)=>{
+      
+      for(let b in books){
+        for(let s in booksInShelfs){
+
+          if(books[b].id == booksInShelfs[s].id){
+           
+            
+            books[b] = booksInShelfs[s]
+          }
+         
+          
+        }
+      }
+    
+      this.setState({results:books})
+
+
+    })
+
   })    
 }
 
@@ -53,9 +74,10 @@ updateQuery = ( query ) =>{
 render(){
     const { query, results} = this.state
     const { onMoveBooks, books } = this.props
-   console.log(results)
+   
     
     
+
     let filterBooks 
 
     if ( query ){
