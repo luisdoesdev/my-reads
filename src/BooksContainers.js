@@ -18,20 +18,21 @@ render(){
     const {book, onMoveBooks, onDelete} = this.props
     
     //Basic fix for the problem of the options
-    let opts = []
-
     
-
-    for(let i in book){
+    
+    
+    let opts = []
+    for(let b of book){
      
      
-      let b = book[i]
-      console.log(b)
+     
+      
     
 
       if (b.shelf === "read" ){
 
         opts = [
+          {id:1},
           {value:"read", title:" ✓ Read"},
           {value:"currentlyReading", title: "Currently Reading"},
           {value:"wantToRead", title: "Want To Read"} 
@@ -41,6 +42,7 @@ render(){
        else if (b.shelf === "wantToRead"){
 
           opts = [
+            {id:2},
             {value:"read", title:" Read"},
             {value:"currentlyReading", title: "Currently Reading"},
             {value:"wantToRead", title: " ✓ Want To Read"} 
@@ -50,6 +52,7 @@ render(){
        else if (b.shelf === "currentlyReading"){
 
          opts = [
+          {id:3},
            {value:"read", title:" Read"},
            {value:"currentlyReading", title: " ✓ Currently Reading"},
            {value:"wantToRead", title: "Want To Read"} 
@@ -59,13 +62,14 @@ render(){
     
         else { 
           opts = [
+            {id:4},
             {value:"read", title:" Read"},
             {value:"currentlyReading", title: "Currently Reading"},
             {value:"wantToRead", title: "Want To Read"} 
                 ] 
 
         }     
-        
+        console.log(b, opts)
     
     
     }
@@ -78,6 +82,9 @@ render(){
       display:"none", 
     }
     
+    const highlight = {
+      
+    }
    
     return(
               <div>
@@ -95,9 +102,11 @@ render(){
 
                                 <option  value="none" disabled>Move to...</option>
                                 <option style={hide} value="none"></option>
-                                {opts.map((o)=>(
-                                  <option value={o.value}>{o.title}</option>
-                                ))}
+                                <option value="read" className={(b.shelf === 'read') ? "highlight": ""}> Read </option> 
+                                <option value="currentlyReading" className={(b.shelf === 'currentlyReading') ? "highlight": ""}> Currently Reading </option>    
+                                <option value="wantToRead" className={(b.shelf === 'wantToRead') ? "highligh": " "}> Want To Read </option>                            
+
+                                
 
                             
                               
