@@ -83,7 +83,7 @@ updateQuery = ( query ) =>{
 
 render(){
     const { query, results, error} = this.state
-    const { onMoveBooks, books } = this.props
+    const { onMoveBooks} = this.props
     console.log(error)
 
     let filterBooks 
@@ -105,8 +105,10 @@ render(){
     let renError 
     if (error === 'error'){
      renError = 
-       <h1> Unfurtunately we couldn't find  '{query}', try another title or author </h1>
-    } 
+       <h1> Unfurtunately we couldn't find  this book or author, try another title or author </h1>
+    } else {
+      renError =  <h3> results for - {query}</h3>
+    }
 
     return(
        
@@ -129,6 +131,7 @@ render(){
             </div>
 
             <div className="search-books-results">
+               
           
             {renError}
               <ol className="books-grid">
