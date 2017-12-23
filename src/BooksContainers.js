@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 
 
+
 class BooksContainers extends Component{
 
 
@@ -43,7 +44,7 @@ render(){
                             <div className="book-shelf-changer">
 
                                       
-                              <select  onChange={(e)=> onMoveBooks(b.id, e.target.value, this)}>
+                              <select onChange={(e)=> onMoveBooks(b.id, e.target.value, this)} value={b.shelf}>
 
                                 <option  value="none" disabled>Move to...</option>
                                 <option style={hide} value="none"></option>

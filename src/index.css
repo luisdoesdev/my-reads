@@ -12,9 +12,14 @@ body {
 
 .highlight{
   background: grey; 
-  color: #fff
-}
-.highlight::before{
+  color: #fff;
   content: "check";
 }
+.highlight-red{
+  color:red;
+}
 
+
+.hide{
+  display: none;
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 import BooksContainers from './BooksContainers'
-
+import {Debounce} from 'react-throttle'
 import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
 import sortBY from 'sort-by'
@@ -10,6 +10,7 @@ import sortBY from 'sort-by'
 class SearchBooks extends Component{
 
 state={
+    eror:'',
     results:[],
     query: ''
 }
@@ -39,19 +40,26 @@ updateQuery = ( query ) =>{
     BooksAPI.getAll().then((booksInShelfs)=>{
       
       for(let b in books){
+    
         for(let s in booksInShelfs){
 
+          if (books.error){
+            console.log([books])
+            this.setState({error:"error"})
+          }
+
           if(books[b].id == booksInShelfs[s].id){
-           
+           //console.log(books)
             
             books[b] = booksInShelfs[s]
+            this.setState({results:books})
+            this.setState({error:" "})
           }
          
           
         }
       }
     
-      this.setState({results:books})
 
 
     })
@@ -74,11 +82,9 @@ updateQuery = ( query ) =>{
     
 
 render(){
-    const { query, results} = this.state
+    const { query, results, error} = this.state
     const { onMoveBooks, books } = this.props
-   
-    
-    
+    console.log(error)
 
     let filterBooks 
 
@@ -91,32 +97,40 @@ render(){
         filterBooks = results
     }
 
-      
-
-
-      
+    const hide = {
+      display:"none", 
+    }
+    
+    //Book Error Handler
+    let renError 
+    if (error === 'error'){
+     renError = 
+       <h1> Unfurtunately we couldn't find  '{query}', try another title or author </h1>
+    } 
 
     return(
        
              <div className="search-books">
             <div className="search-books-bar">
-
             <Link
-                to="/"
+                to="/"  
                 className="close-search"
             >Close</Link>
 
               <div className="search-books-input-wrapper">
-              
+              <Debounce time="1000" handler="onChange">
                 <input 
                 type="text" 
                 placeholder="Search by title or author"
                 onChange = {(e) => this.updateQuery(e.target.value)}
                 />
-
+              </Debounce>
               </div>
             </div>
+
             <div className="search-books-results">
+          
+            {renError}
               <ol className="books-grid">
               <BooksContainers
               book={results}
