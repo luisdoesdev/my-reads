@@ -2,9 +2,10 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
-import BooksContainers from './BooksContainers'
+import Shelf from './Shelf'
 import SearchBooks from './SearchBooks'
 import { Route, Link } from 'react-router-dom'
+
 
 
 class BooksApp extends React.Component {
@@ -73,45 +74,29 @@ componentDidMount(){
               <div className="list-books-content">
 
 
-             {/* Currently Reading  */}
-              <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                    <BooksContainers
-                      book={currentlyReading}
-                      onMoveBooks={this.booksMove}
-                      />
-              </div>
+             {/*  Read  */}
+            <Shelf
+              title={"Read"}
+              book={read}
+              onMoveBooks={this.booksMove}
+            />
+
+            {/*  Currently Reading  */}
+              <Shelf
+              title={"Currently Reading"}
+              book={currentlyReading}
+              onMoveBooks={this.booksMove}
+            />
+
+            {/*  Want To Read  */}
+              <Shelf
+              title={"Want To Read"}
+              book={wantToRead}
+              onMoveBooks={this.booksMove}
+              />
               </div>
 
-
-            {/* Already Read  */}
-              <div className="bookshelf">
-              <h2 className="bookshelf-title">Already Read</h2>
-              <div className="bookshelf-books">
-                    <BooksContainers
-                    book={read}
-                    onMoveBooks={this.booksMove}
-                 
-                    />
-              </div>
-              </div>  
-
-
-
-               {/* Want To Read  */}
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Want To Reading</h2>
-                  <div className="bookshelf-books">    
-                    <BooksContainers
-                    book={wantToRead}
-                    onMoveBooks={this.booksMove}
-                    />
-              
-                  </div>
-              </div>
-               
-              </div>
+              {/* Search */}  
               <div className="open-search" >
                 <Link
                 to="/search"

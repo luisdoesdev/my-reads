@@ -12,6 +12,7 @@ import sortBY from 'sort-by'
 
 
 
+
 class SearchBooks extends Component{
 
   //PropsTypes
@@ -83,19 +84,13 @@ updateQuery = ( query ) =>{
   })    
 }
 
-
-
   //Clear query
   clearQuery = ( query ) =>{
     this.setState({
         query: query = " "
     })
 
-   
 }
-
-
-    
 
 render(){
     const { query, results, error} = this.state
@@ -105,7 +100,7 @@ render(){
     
     let filterBooks 
 
-    if ( query ){
+    if ( query  ){
         const match = new RegExp(escapeRegExp(query), 'i')  
         filterBooks = results.filter((book)=> match.test(book.title))
 
@@ -122,7 +117,9 @@ render(){
     if (error === 'error' && query){
      renError = 
        <h1> Unfurtunately we couldn't find "{ query }", try another title or author </h1>
-    } else if ( query ){
+    } 
+    else if ( query.length > 3)
+    {
       renError =  <h3> results for - {query}</h3>
     }
 
@@ -136,7 +133,7 @@ render(){
             >Close</Link>
 
               <div className="search-books-input-wrapper">
-              <Debounce time="1000" handler="onChange">
+              <Debounce time="400" handler="onChange">
                 <input 
                 type="text" 
                 placeholder="Search by title or author"
@@ -148,17 +145,19 @@ render(){
 
             <div className="search-books-results">
                
-          
-            {renError}
-              <ol className="books-grid">
             
-              <BooksContainers
+            <ol className="books-grid" className={error ==="error"  ? "hide": "" }>
+            
+              <BooksContainers 
               book={results}
               onMoveBooks={onMoveBooks}
               />        
-          
+        
+            </ol>
+            <div className={query.length > 2 ? "" :'hide'} >
+            {renError}
+            </div>
 
-              </ol>
             </div>
           </div>
         
