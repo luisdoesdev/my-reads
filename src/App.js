@@ -27,17 +27,16 @@ componentDidMount(){
   //switch books
   booksMove=(id,e, object)=>{
     
-    const shelf = e
-    const bookArray = object.props.book.filter(b=> b.id === id)
-    const book = bookArray.shift()
+    const shelf=e
+    const bookArray=object.props.book.filter(b=> b.id === id)
+    const book=bookArray.shift()
    
 
     if (book.shelf !== shelf){ 
       BooksAPI.update(book,shelf).then(()=>{
 
-        book.shelf = shelf
-        
-        
+        book.shelf=shelf
+
         this.setState(state=>({
           books: state.books.filter(b => b.id !== book.id).concat([ book ])
         }))
@@ -59,11 +58,12 @@ componentDidMount(){
     const wantToRead = books.filter(book => book.shelf === "wantToRead" )
     const currentlyReading  = books.filter(book => book.shelf === "currentlyReading" )
 
+    
 
     return (
       <div className="app">
 
-          <Route path="/" exact render ={()=> (
+          <Route path="/" exact render={()=> (
      
           
             <div className="list-books">
@@ -78,8 +78,8 @@ componentDidMount(){
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                     <BooksContainers
-                      book = {currentlyReading}
-                      onMoveBooks ={this.booksMove}
+                      book={currentlyReading}
+                      onMoveBooks={this.booksMove}
                       />
               </div>
               </div>
@@ -90,8 +90,8 @@ componentDidMount(){
               <h2 className="bookshelf-title">Already Read</h2>
               <div className="bookshelf-books">
                     <BooksContainers
-                    book = {read}
-                    onMoveBooks ={this.booksMove}
+                    book={read}
+                    onMoveBooks={this.booksMove}
                  
                     />
               </div>
@@ -104,8 +104,8 @@ componentDidMount(){
                 <h2 className="bookshelf-title">Want To Reading</h2>
                   <div className="bookshelf-books">    
                     <BooksContainers
-                    book = {wantToRead}
-                    onMoveBooks = {this.booksMove}
+                    book={wantToRead}
+                    onMoveBooks={this.booksMove}
                     />
               
                   </div>
@@ -127,9 +127,9 @@ componentDidMount(){
         <Route path="/search" exact render={()=>(
 
           <SearchBooks 
-          onMoveBooks = {this.booksMove}
-          books = { books }
-          onUpdateBooks = {this.updateBooks}
+          onMoveBooks={this.booksMove}
+          books={ books }
+          onUpdateBooks={this.updateBooks}
           />
         )}
         /> 

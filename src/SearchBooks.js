@@ -1,22 +1,35 @@
+
+/** SearchBooks.js **/
 import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 import BooksContainers from './BooksContainers'
 import {Debounce} from 'react-throttle'
 import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
+import PropTypes from 'prop-types'
 import sortBY from 'sort-by'
+
+
 
 
 class SearchBooks extends Component{
 
+  //PropsTypes
+  static propTypes = {
+    onMoveBooks: PropTypes.func.isRequired
+  }
+
+
 state={
-    eror:'',
+    error:'',
     results:[],
-    query: ''
+    query: '',
+   
 }
 
 // call The API
 componentDidMount(){
+
  this.updateQuery()
  
 }
@@ -27,7 +40,7 @@ componentDidMount(){
 
 updateQuery = ( query ) =>{
   
-  const book = this.props.books
+
   this.setState({
     query: query.trim()
   })
@@ -48,12 +61,15 @@ updateQuery = ( query ) =>{
             this.setState({error:"error"})
           }
 
-          if(books[b].id == booksInShelfs[s].id){
-           //console.log(books)
+          if(books[b].id === booksInShelfs[s].id){
+           
             
-            books[b] = booksInShelfs[s]
+            books[b]=booksInShelfs[s]
+
+            //set the states
             this.setState({results:books})
             this.setState({error:" "})
+            
           }
          
           
@@ -84,8 +100,9 @@ updateQuery = ( query ) =>{
 render(){
     const { query, results, error} = this.state
     const { onMoveBooks} = this.props
-    console.log(error)
-
+ 
+    
+    
     let filterBooks 
 
     if ( query ){
@@ -97,16 +114,15 @@ render(){
         filterBooks = results
     }
 
-    const hide = {
-      display:"none", 
-    }
-    
+    filterBooks.sort(sortBY('title')) // allows to sort by a specific type
+
+ 
     //Book Error Handler
     let renError 
-    if (error === 'error'){
+    if (error === 'error' && query){
      renError = 
-       <h1> Unfurtunately we couldn't find  this book or author, try another title or author </h1>
-    } else {
+       <h1> Unfurtunately we couldn't find "{ query }", try another title or author </h1>
+    } else if ( query ){
       renError =  <h3> results for - {query}</h3>
     }
 
@@ -124,7 +140,7 @@ render(){
                 <input 
                 type="text" 
                 placeholder="Search by title or author"
-                onChange = {(e) => this.updateQuery(e.target.value)}
+                onChange={(e) => this.updateQuery(e.target.value)}
                 />
               </Debounce>
               </div>
@@ -135,10 +151,12 @@ render(){
           
             {renError}
               <ol className="books-grid">
+            
               <BooksContainers
               book={results}
-              onMoveBooks = {onMoveBooks}
+              onMoveBooks={onMoveBooks}
               />        
+          
 
               </ol>
             </div>
