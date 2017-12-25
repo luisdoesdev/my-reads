@@ -133,7 +133,7 @@ render(){
             >Close</Link>
 
               <div className="search-books-input-wrapper">
-              <Debounce time="400" handler="onChange">
+              <Debounce time="700" handler="onChange">
                 <input 
                 type="text" 
                 placeholder="Search by title or author"
@@ -142,23 +142,30 @@ render(){
               </Debounce>
               </div>
             </div>
+            
+       
 
             <div className="search-books-results">
                
             
-            <ol className="books-grid" className={error ==="error"  ? "hide": "" }>
             
+            {renError}
+            <ol className="book-grid">
+
+              
               <BooksContainers 
               book={results}
               onMoveBooks={onMoveBooks}
               />        
         
             </ol>
-            <div className={query.length > 2 ? "" :'hide'} >
-            {renError}
-            </div>
+           
+           
+           
 
             </div>
+
+         
           </div>
         
     )
