@@ -46,6 +46,8 @@ updateQuery = ( query ) =>{
     query: query.trim()
   })
 
+  this.setState({results:[]})
+
   BooksAPI.search(query).then((books)=>{
     
     
@@ -59,7 +61,9 @@ updateQuery = ( query ) =>{
 
           if (books.error){
             console.log([books])
+           
             this.setState({error:"error"})
+            
           }
 
           if(books[b].id === booksInShelfs[s].id){
@@ -68,6 +72,7 @@ updateQuery = ( query ) =>{
             books[b]=booksInShelfs[s]
 
             //set the states
+            
             this.setState({results:books})
             this.setState({error:" "})
             
@@ -111,17 +116,9 @@ render(){
 
     filterBooks.sort(sortBY('title')) // allows to sort by a specific type
 
- 
-    //Book Error Handler
-    let renError 
-    if (error === 'error' && query){
-     renError = 
-       <h1> Unfurtunately we couldn't find "{ query }", try another title or author </h1>
-    } 
-    else if ( query.length > 3)
-    {
-      renError =  <h3> results for - {query}</h3>
-    }
+
+   
+
 
     return(
        
@@ -133,7 +130,7 @@ render(){
             >Close</Link>
 
               <div className="search-books-input-wrapper">
-              <Debounce time="700" handler="onChange">
+              <Debounce time="1200" handler="onChange">
                 <input 
                 type="text" 
                 placeholder="Search by title or author"
@@ -145,13 +142,13 @@ render(){
             
        
 
-            <div className="search-books-results">
+            <div className={query.length>2 ? "search-books-results":"hide"}>
                
+            <div> {error.length > 1 ?  <p>Unfurtunately we couldnt find {query}</p> : <p>results for-  {query}</p> }</div>
             
             
-            {renError}
+           
             <ol className="book-grid">
-
               
               <BooksContainers 
               book={results}
