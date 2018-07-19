@@ -2,7 +2,6 @@
 
 This Project was part of my Udacity React Nanodegree and it's intended to show my React skills.
 
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
 
 ## TL;DR
 
