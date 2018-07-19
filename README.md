@@ -1,6 +1,6 @@
 # MyReads Project
 
-This Project was part of my Udacity React Nanodegree and it's intended to show my React skills.
+This Project was part of my Udacity React Nanodegree and it's intended to show my React skills. It can also be used as a boilerplate to create new React Projects that make API calls "/BookAPI.js" has all the option for doind so and you can edit as you go. :)
 
 
 ## TL;DR
@@ -31,8 +31,6 @@ To get started developing right away:
     ├── index.css # Global styles. You probably won't need to change anything here.
     └── index.js # You should not need to modify this file. It is used for DOM rendering only.
 ```
-
-Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
 
 ## Backend Server
 
