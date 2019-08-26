@@ -3,12 +3,22 @@
 This Project was part of my Udacity React Nanodegree and it's intended to show my React skills. It can also be used as a boilerplate to create new React Projects that make API calls "/BookAPI.js" has all the option for doind so and you can edit as you go. :)
 
 
+
+
 ## TL;DR
 
 To get started developing right away:
 
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
+
+
+## FEATURES
+ * Debouncer on search
+ * Tag System
+ * Toaster that tells you if book was added
+ * Night mode
+
 
 ## What You're Getting
 ```bash
