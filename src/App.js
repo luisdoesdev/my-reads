@@ -10,15 +10,22 @@ import { Route, Link } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
-    books:[]
+    books:[],
+    error:'',
+    ready:false
   }
 
 
   // call The API
 componentDidMount(){
-  BooksAPI.getAll().then((books)=>{
+  BooksAPI.getAll()
+  .then((books)=>{
     this.setState({books})
   })
+  .catch((error)=>{
+    this.setState({error})
+  })
+  setTimeout(()=>{ this.setState({ready:true}) }, 1500);
 }
 
 
@@ -50,30 +57,38 @@ componentDidMount(){
 
   render() {
     
-    const { books } = this.state
+    const { books, ready } = this.state
 
     //Sepparate the books and sort them by shelfs    
     
+
     //shelves
     const read = books.filter(book => book.shelf === "read" )
     const wantToRead = books.filter(book => book.shelf === "wantToRead" )
     const currentlyReading  = books.filter(book => book.shelf === "currentlyReading" )
 
     
+    
 
     return (
-      <div className="app">
-
+      <div className="app" >
+         
           <Route path="/" exact render={()=> (
      
           
             <div className="list-books">
+              
               <div className="list-books-title">
-                <h1>MyReads</h1>
+                
+
+                <h1>{ready? "Reads" : 'Loading'}</h1>
+                
               </div>
+              {/* TERNIARY checking for state to be ready */}
+              {ready? (
               <div className="list-books-content">
 
-
+             
              {/*  Read  */}
             <Shelf
               title={"Read"}
@@ -94,8 +109,7 @@ componentDidMount(){
               book={wantToRead}
               onMoveBooks={this.booksMove}
               />
-              </div>
-
+              </div>): "" }  
               {/* Search */}  
               <div className="open-search" >
                 <Link
@@ -104,9 +118,12 @@ componentDidMount(){
                 </Link>
                 </div>
             </div>
+          
+
             )} 
+
           />
-        
+          
         
         
         <Route path="/search" exact render={()=>(

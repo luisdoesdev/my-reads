@@ -30,9 +30,7 @@ state={
 
 // call The API
 componentDidMount(){
-
  this.updateQuery()
- 
 }
 
 
@@ -40,8 +38,7 @@ componentDidMount(){
 
 
 updateQuery = ( query ) =>{
-  
-
+  if(query){
   this.setState({
     query: query.trim()
   })
@@ -49,9 +46,6 @@ updateQuery = ( query ) =>{
   this.setState({results:[]})
 
   BooksAPI.search(query).then((books)=>{
-    
-    
-
     //for loop to determine what books are on my shelf
     BooksAPI.getAll().then((booksInShelfs)=>{
       
@@ -87,6 +81,7 @@ updateQuery = ( query ) =>{
     })
 
   })    
+} 
 }
 
   //Clear query
