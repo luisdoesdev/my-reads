@@ -1,13 +1,52 @@
-import React from 'react'
-import * as BooksAPI from './BooksAPI'
-import './App.css'
+import { func } from "prop-types"
+import React from "react"
+// import * as BooksAPI from './BooksAPI'
+// import './App.css'
+import { Nav, Form } from "react-bootstrap"
 
-import Shelf from './Shelf'
-import SearchBooks from './SearchBooks'
-import { Route, Link } from 'react-router-dom'
+// import Shelf from './Shelf'
+// import SearchBooks from './SearchBooks'
+// import { Route, Link } from 'react-router-dom'
 
 
+//
 
+function whenSubmitted(e){
+  e.preventDefault();
+  let value = e
+  console.log(value)
+}
+
+function SearchBar(){
+  return <Form onSubmit={whenSubmitted}>
+      <Form.Group controlId="searchForm">
+        <Form.Label>search for books</Form.Label>
+        <Form.Control type="text" placeholder="search" />
+        <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+        </Form.Text>
+      </Form.Group>
+</Form>
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Nav
+          activeKey="/home"
+          onSelect={selectedKey => alert(`selected ${selectedKey}`)}
+        >
+          <SearchBar />
+        </Nav>
+      </div>
+    )
+  }
+}
+
+export default App
+
+/*
 class BooksApp extends React.Component {
   state = {
     books:[],
@@ -84,33 +123,33 @@ componentDidMount(){
                 <h1>{ready? "Reads" : 'Loading'}</h1>
                 
               </div>
-              {/* TERNIARY checking for state to be ready */}
+             
               {ready? (
               <div className="list-books-content">
 
              
-             {/*  Read  */}
+      
             <Shelf
               title={"Read"}
               book={read}
               onMoveBooks={this.booksMove}
             />
 
-            {/*  Currently Reading  */}
+          
               <Shelf
               title={"Currently Reading"}
               book={currentlyReading}
               onMoveBooks={this.booksMove}
             />
 
-            {/*  Want To Read  */}
+         
               <Shelf
               title={"Want To Read"}
               book={wantToRead}
               onMoveBooks={this.booksMove}
               />
               </div>): "" }  
-              {/* Search */}  
+             
               <div className="open-search" >
                 <Link
                 to="/search"
@@ -142,3 +181,4 @@ componentDidMount(){
 }
 
 export default BooksApp
+*/

@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 
 class BooksContainers extends Component{
 
-
   //PropsTypes
   static propTypes = {
     book : PropTypes.array.isRequired,
