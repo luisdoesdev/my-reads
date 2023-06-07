@@ -6,6 +6,7 @@ body {
 }
 body, .app {
   background: white;
+  height: 95vh;
 }
 
 /* main page */
@@ -28,6 +29,8 @@ body, .app {
 
 .bookshelf {
   padding: 0 10px 20px;
+  margin: auto;
+  max-width: 650px;
 }
 
 @media (min-width: 600px) {
